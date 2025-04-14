@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INFO PAPER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      font-family:'Times New Roman', Times, serif
+      background-color: #f4f7fc;
+      color: #232323;
+      
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ddd;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .tab-btn.active {
+      background-color: #2664e9fb;
+      color: #fff;
+    }
+
+    
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius:40px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2em;
+      color: #080280;
+      margin-bottom: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .username input {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #000000;
+     border-radius:40px;
+      font-size: 16px;
+    }
+
+    .btn {
+      background-color: #0c03b3;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 1.2em;
+      border-radius:40px;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .btn:hover {
+      background-color: #990000;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .btn.finish {
+      background-color: #e74c3c;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .btn.finish:hover {
+      background-color: #28ad00;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .timer {
+      font-size: 1.2em;
+      color: #e50000;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-align: center;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .questions {
+      display: none;
+    }
+
+    .question {
+      margin-bottom: 30px;
+    }
+
+    .question label {
+      font-size: 1.1em;
+      margin-bottom: 12px;
+      display: block;
+      font-weight: 500;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .certificate {
+      display: none;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff, #8c8c8c);
+      padding: 50px 30px;
+      border-radius: 20px;
+      border: 8px double #080280;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      max-width: 700px;
+      animation: fadeIn 1.5s ease-out;
+      position: relative;
+      font-family: 'Georgia', serif;
+      margin: auto;
+    }
+
+    .certificate::before {
+      content: '🎖️';
+      font-size: 3rem;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .certificate h2 {
+      font-size: 3em;
+      color: #02129d;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .certificate p {
+      font-size: 1.4em;
+      color: #000000;
+      margin: 20px 0;
+    }
+
+    .certificate #certificateName span {
+      font-size: 1.8em;
+      font-weight: 600;
+      color: #02129d;
+    }
+
+    .certificate .score {
+      font-size: 2em;
+      font-weight: bold;
+      color: #080280;
+      margin-top: 10px;
+    }
+
+    .details {
+      display: none;
+      text-align: left;
+      background: #fff;
+      padding: 20px;
+      border-radius:40px;
+      border: 2px solid #727272;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .details .correct {
+      color: rgb(0, 88, 0);
+    }
+
+    .details .wrong {
+      color: red;
+    }
+
+    .see-details-btn {
+      margin-top: 20px;
+      background-color:  #080280;
+    }
+
+    .admin-container {
+      display: none;
+      text-align: center;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 40px;
+      box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .admin-container table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .admin-container th,
+    .admin-container td {
+      padding: 10px;
+      border: 2px solid #ddd;
+      text-align: left;
+    }
+
+    #adminPassword {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #000000;
+      border-radius:40px;
+      font-size: 16px;
+    }
+
+    .admin-container .btn {
+      width: auto;
+      background-color: #080280;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab-btn {
+        font-size: 0.9em;
+      }
+
+      .btn {
+        font-size: 1em;
+      }
+
+      .question label {
+        font-size: 1em;
+      }
+
+      .timer {
+        font-size: 1em;
+      }
+
+      .certificate h2 {
+        font-size: 2.2em;
+      }
+
+      .certificate p {
+        font-size: 1.2em;
+      }
+
+      .certificate .score {
+        font-size: 1.6em;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .tabs {
+        flex-direction: column;
+      }
+
+      .btn {
+        font-size: 0.9em;
+      }
+    }
+    .radio-option input[type="radio"] {
+  transform: scale(1.3); /* Increase to 1.5x original size */
+  margin-right: 9px; /* Optional: Add spacing between radio and label text */
+  cursor: pointer;
+}
+
+.radio-option {
+  line-height: 1.6; /* Adjust this value as needed */
+}
+
+
+body{
+
+background-color: #005404;
+font-size: 18px;
+font-style: italic;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('user')">USER PANNEL</button>
+    <button class="tab-btn" onclick="showTab('admin')">ADMIN PANNEL</button>
+  </div>
+
+  <div id="userTab">
+    <div class="container">
+      <div class="username">
+        <h1>INFO CHANNEL CIT TEST</h1>
+        <p>Please Enter Your Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Attempt 62 MCQS
+        </p>
+        <input type="text" id="username" placeholder="Your Name" />
+        <button class="btn" onclick="startTest()">Start</button>
+      </div>
+
+      <div class="questions">
+        <div class="timer" id="timer">Time Remaining: 01:00</div>
+        <div id="questionContainer"></div>
+        <div class="navigation">
+          <button class="btn" onclick="prevQuestion()">Back</button>
+          <button class="btn" onclick="nextQuestion()">Next</button>
+          <button class="btn finish" onclick="submitTest()" style="display:none;" id="finishBtn">Finish</button>
+        </div>
+      </div>
+
+      <div class="certificate">
+        <h2>Certificate of Completion</h2>
+        <p>This is to certify that</p>
+        <p id="certificateName"><span></span></p>
+        <p>has successfully completed the test</p>
+        <p>Your Score:</p>
+        <p class="score" id="certificatePercentage"></p>
+        <button class="btn see-details-btn" onclick="showDetails()">See Details</button>
+      </div>
+
+      <div class="details" id="detailsContainer"></div>
+    </div>
+  </div>
+
+  <div id="adminTab" style="display: none;">
+    <div class="container">
+      <h1>ADMIN PANNEL</h1>
+      <p>Please Enter Password:</p>
+      <input type="password" id="adminPassword" placeholder="Admin Password" />
+      <button class="btn" onclick="authenticateAdmin()">Submit</button>
+    </div>
+
+    <div class="admin-container" id="adminContainer">
+  <h2>Student Results</h2>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Score</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="adminResults"></tbody>
+    </table>
+  </div>
+</div>
+
+  <script>
+    const questionsData = [
+      { question: "1. Which of the following is the default file extension for a Microsoft Word document?", options: ["A) .txt", "B) .docx", "C) .pdf", "D) .xls"], correct: "B) .docx" },
+      { question: "2. What is the shortcut key for saving a document in MS Word?", options: ["A) Ctrl + S", "B) Ctrl + C", "C) Ctrl + V", "D) Ctrl + P"], correct: "A) Ctrl + S" },
+      { question: "3. What is the default page orientation in MS Word?", options: ["A) Portrait", "B) Landscape", "C) Squaret", "D) Custom"], correct: "A) Portrait" },
+      { question: "4. Which of the following is the keyboard shortcut for printing a document in MS Word?", options: ["A) Ctrl + P", "B) Ctrl + F", "C) Ctrl + S", "D) Ctrl + N"], correct: "A) Ctrl + P" },
+      { question: "5. Which tab do you use to change page margins in MS Word?", options: ["A) Home", "B) Page Layout", "C) Review", "D) View"], correct: "B) Page Layout" },
+      { question: "6. Which of the following is NOT a type of page border you can insert in MS Word?", options: ["A) Box", "B) Shadow", "C) Custom", "D) Diagonal"], correct: "D) Diagonal" },
+      { question: "7. Which of the following options can you use to insert a hyperlink into your Word document?", options: ["A) Right-click and select Hyperlink", "B) Insert tab > Link", "C) Ctrl + K", "D) All of the above"], correct: "D) All of the above" },
+      { question: "8. Which tab would you go to if you want to change the font style in Microsoft Word?", options: ["A) Home", "B) Insert", "C) Design", "D) Layout"], correct: "A) Home" },
+      { question: "9. Which of the following is used to insert page numbers in a Word document?", options: ["A) Insert tab > Page Numbers", "B) View tab > Header & Footer", "C) Format tab > Page Number", "D) Layout tab > Insert Page Number"], correct: "A) Insert tab > Page Numbers" },
+      { question: "10. Which of the following is the shortcut key to bold text in MS Word?", options: ["A) Ctrl + B", "B) Ctrl + I", "C) Ctrl + U", "D) Ctrl + F"], correct: "A) Ctrl + B" },
+      { question: "11. What is the default file extension for a Microsoft Excel workbook?", options: ["A) .txt", "B) .xls", "C) .xlsx", "D) .docx"], correct: "B) .xls" },
+      { question: "12. What does the VLOOKUP function do in Excel??", options: ["A) Finds the maximum value in a range", "B) Searches for a value in the first column of a range and returns a value in the same row from a specified column", "C) Counts the number of cells with numerical data", "D) Adds up all the numbers in a range"], correct: "B) Searches for a value in the first column of a range and returns a value in the same row from a specified column" },
+      { question: "13. Which key is used to auto-complete a formula in Excel?", options: ["A) F1", "B) F2", "C) F3", "D) F5"], correct: "B) F2" },
+      { question: "14. What is the purpose of the SUM function in Excel?", options: ["A) To find the average of a range of cells", "B) To count the number of cells", "C) To add up the values in a range of cells", "D) To find the largest value in a range"], correct: "B) To count the number of cells" },
+      { question: "15. Which of the following Excel functions will return the current date?", options: ["A) TODAY()", "B) DATE()", "C) NOW()", "D) TIME()"], correct: "A) TODAY()" },
+      { question: "16. What does the term Merge Cells mean in Excel?", options: ["A) Combine two rows into one", "B) Combine two or more columns into one cell", "C) Split one cell into multiple cells", "D) Group data into categories"], correct: "B) Combine two or more columns into one cell" },
+      { question: "17. How do you insert a new row in Excel?", options: ["A) Right-click a cell and click Insert Row", "B) Press Ctrl + R", "C) Right-click on the row number and select Insert", "D) Press Ctrl + N"], correct: "C) Right-click on the row number and select Insert" },
+      { question: "18. How do you add a comment to a cell?", options: ["A) Right-click on the cell and choose Insert Comment", "B) Press Ctrl + Shift + C", "C) Press Alt + C", "D) Click on Review and select New Comment"], correct: "D) Click on Review and select New Comment" },
+      { question: "19. What does the HLOOKUP function do?", options: ["A) Searches for a value in a vertical column", "B) Searches for a value in a horizontal row", "C) Finds the highest value in a column", "D) Returns the sum of all values"], correct: "B) Searches for a value in a horizontal row" },
+      { question: "20. How can you add a new slide to a PowerPoint presentation?", options: ["A) Click New Slide in the Home tab", "B) Press Ctrl + M", "C) Right-click in the slide navigation pane and select New Slide", "D) All of the above"], correct: "D) All of the above" },
+      { question: "21. Which PowerPoint feature allows you to change the timing of transitions?", options: ["A) Slide Show Tab", "B) Animations Tab", "C) Design Tab", "D) Transitions Tab"], correct: "D) Transitions Tab" },
+      { question: "22. Which of the following is the default slide layout in PowerPoint?", options: ["A) Title Slide", "B) Title and Content", "C) Blank", "D) Comparison"], correct: "A) Title Slide" },
+      { question: "24. What is the maximum number of slides allowed in a PowerPoint presentation?", options: ["A) 100", "B) 500", "C) 1000", "D) No limit"], correct: "D) No limit" },
+      { question: "25. What is the shortcut to go to the next slide in Slide Show mode?", options: ["A) Spacebar", "B) Enter", "C) Right Arrow", "D) All of the above"], correct: "D) All of the above" },
+      { question: "26. Which option allows you to add audio or video to a slide?", options: ["A) Insert Tab > Audio/Video", "B) Design Tab > Multimedia", "C) View Tab > Audio", "D) Insert Tab > Media"], correct: "A) Insert Tab > Audio/Video" },
+      { question: "27.  What is the default file extension for a PowerPoint 2016 file?", options: ["A) .ppt", "B) .pptx", "C) .ppsx", "D) .docx"], correct: "A) .ppt" },
+      { question: "28.  How do you insert a picture into a slide?", options: ["A) Click on the Insert tab and select Picture", "B) Right-click the slide and select Insert Picture", "C) Drag and drop an image onto the slide", "D) Both A and C"], correct: "A) Click on the Insert tab and select Picture" },
+      { question: "29.  How do you add a new text box in PowerPoint?", options: ["A) Click Insert tab and select Text Box", "B) Press Ctrl + T", "C) Click Home tab and select Text Box", "D) Both A and C"], correct: "A) Click Insert tab and select Text Box" },
+      { question: "30.  What is the default file extension for a Photoshop document?", options: ["A) .psd", "B) .jpg", "C) .png", "D) .bmp"], correct:"A) .psd" },
+      { question: "31.  What is the purpose of the Layers panel in Photoshop?", options: ["A) To view all the text layers in an image", "B) To separate different elements of an image for easy editing", "C) To adjust the resolution of the image", "D) To crop the image"], correct:"B) To separate different elements of an image for easy editing" },
+      { question: "32.  What does the Pen Tool do in Photoshop?", options: ["A) It draws straight and curved paths", "B) It selects areas of an image", "C) It adds a vignette effect", "D) It removes the background from an image"], correct:"A) It draws straight and curved paths" },
+      { question: "33.  How can you add text to an image in Photoshop?", options: ["A) Use the Text Tool from the toolbar", "B) Go to the File menu and choose Add Text", "C) Use the Shape Tool to create text", "D) Use the Brush Tool to write text"], correct:"A) Use the Text Tool from the toolbar" },
+      { question: "34.  In Photoshop, which of the following allows you to adjust the brightness and contrast of an image non-destructively?", options: ["A) Curves", "B) Levels", "C) Brightness/Contrast Adjustment Layer", "D) Histogram"], correct:"C) Brightness/Contrast Adjustment Layer" },
+      { question: "35.  Which of the following color modes is best suited for print?", options: ["A) RGB", "B) CMYK", "C) HSL", "D) Lab"], correct:"B) CMYK" },
+      { question: "36.  What is the purpose of the Layer Mask in Photoshop?", options: ["A) To delete portions of the layer", "B) To apply a filter to a specific layer", "C) To hide portions of a layer non-destructively", "D) To move the layer on the canvas"], correct:"C) To hide portions of a layer non-destructively" },
+      { question: "37.  What is the shortcut to toggle between the foreground and background colors in Photoshop?", options: ["A) X", "B) C", "C) Ctrl + Alt", "D) F"], correct:"A) X" },
+      { question: "38.  What is the default color mode for a new Photoshop document?", options: ["A) RGB", "B) CMYK", "C) Grayscale", "D) Lab Color"], correct:"A) RGB" },
+      { question: "39.  Which of the following tools would you use to draw a perfect straight line?", options: ["A) Line Tool", "B) Pen Tool", "C) Brush Tool", "D) Marquee Tool"], correct:"B) Pen Tool" },
+      { question: "40.  How do you crop an image in Photoshop?", options: ["A) Use the Crop Tool", "B) Use the Marquee Tool", "C) Use the Move Tool", "D) Use the Transform Tool"], correct:"A) Use the Crop Tool" },
+      { question: "41.  What does HTML stand for?", options: ["A) Hyper Text Markup Language", "B) Home Tool Markup Language", "C) Hyperlinks and Text Markup Language", "D) None of the above"], correct:"A) Hyper Text Markup Language" },
+      { question: "42.  Which HTML tag is used to define an unordered list?", options: ["A) ' ol '", "B) ' ul '", "C) ' li '", "D) ' list '"], correct:"B) ' ul '" },
+      { question: "43.  Which HTML tag is used to create a table row?", options: ["A) ' table '", "B) ' row '", "C) ' tr '", "D) ' td '"], correct:"C) ' tr '" },
+        { question: "44.  What is the correct HTML tag for inserting a line break?", options: ["A) ' break '", "B) ' lb '", "C) ' br '", "D) ' line '"], correct:"C) ' br '" },
+          { question: "45.  Which of the following is correct for defining a form input field in HTML?", options: ["A) ' input type=text '", "B) ' input type=textarea '", "C) ' input type=button '", "D) ' input field=text '"], correct:"A) ' input type=text '" },
+          { question: "46.  Which of the following HTML tags is used to define a dropdown list?", options: ["A) ' dropdown '", "B) ' select '", "C) ' option '", "D) ' input type=dropdown '"], correct:"C) ' option '" },
+            { question: "47.  Which of the following tags is used to define a division or section in an HTML document?", options: ["A) ' div '", "B) ' span '", "C) ' section '", "D) Both A and C"], correct:"D) Both A and C" },
+              { question: "48.  Which attribute is used to specify the URL in the <a> tag?", options: ["A) link", "B) href", "C) url", "D) src"], correct:"B) href" },
+                { question: "49.  What is the default value of the &ltul&gt element in HTML?", options: ["A) Numbers", "B) Bullet points", "C) Roman numerals", "D) Custom images"], correct:"B) Bullet points" },
+                  { question: "50.  Which property is used to change the background color of an element in CSS?", options: ["A) bgcolor", "B) background-color", "C) color-background", "D) background"], correct:"B) background-color" },
+                  { question: "51.  What is the default value of the position property in CSS?", options: ["A) static", "B) relative", "C) absolute", "D) fixed"], correct:"A) static" },
+
+                  { question: "52.  Which CSS property is used to add space between the border of an element and its content?", options: ["A) margin", "B) padding", "C) border-spacing", "D) space"], correct:"B) padding" },
+
+                  { question: "53.  Which CSS property would you use to make text bold?", options: ["A) font-weight", "B) font-style", "C) font-bold", "D) text-bold"], correct:"A) font-weight" },
+    
+                  { question: "54.  Which CSS property allows you to make an element’s width or height automatically adjust based on the content?", options: ["A) auto", "B) min-width", "C) flex", "D) width: inherit;0"], correct:"A) auto" },
+    
+                  { question: "55. Which property is used to apply shadows to elements in CSS?", options: ["A) box-shadow", "B) text-shadow", "C) shadow", "D) element-shadow"], correct:"D) element-shadow" },
+    
+                  { question: "56. Which CSS property is used to create a rounded border?", options: ["A) border-radius", "B) border-curved", "C) border-round", "D) border-style"], correct:"A) border-radius" },
+
+                  { question: "57. What does the abbreviation SMTP stand for?", options: ["A) Simple Mail Transfer Protocol", "B) Secure Mail Transfer Protocol", "C) Simple Message Text Protocol", "D) Secure Mail Transfer Process"], correct:"A) Simple Mail Transfer Protocol" },
+                  { question: "58.Which part of the email header specifies the recipient of the email?", options: ["A) Subject", "B) To", "C) From", "D) Body"], correct:"A) Subject" },
+                  { question: "59. Which of the following is an email service provider?", options: ["A) Yahoo Mail", "B) Gmail", "C) Outlook", "D) All of the above"], correct:"D) All of the above" },
+                  { question: "60. Which part of an email message contains the actual content of the message?", options: ["A) Header", "B) Body", "C) Subject", "D) Footer"], correct:"B) Body" },
+    
+                  { question: "61. Which of the following is a valid email address format?", options: ["A) username@domain.com", "B) username@domain@com", "C) username@domain,com", "D) username@domain-com"], correct:"A) username@domain.com" },
+                  { question: "62. What does the Subject field in an email contain?", options: ["A) The body of the email", "B) The sender’s address", "C) The title or topic of the email", "D) The attachments"], correct:"C) The title or topic of the email" },
+
+                ];
+
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let username = "";
+    let timerInterval;
+    let studentResults = JSON.parse(localStorage.getItem('studentResults')) || [];
+    const adminPassword = "itpaper"; // Change this password to whatever you prefer
+
+    function startTest() {
+      username = document.getElementById("username").value.trim();
+      if (!username) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      document.querySelector(".username").style.display = "none";
+      document.querySelector(".questions").style.display = "block";
+      showQuestion();
+      startTimer();
+    }
+
+    function startTimer() {
+      const timerDisplay = document.getElementById('timer');
+      let remainingTime = 3600;
+
+      timerInterval = setInterval(() => {
+        let minutes = Math.floor(remainingTime / 60);
+        let seconds = remainingTime % 80;
+        timerDisplay.textContent = `Time Remaining: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        if (remainingTime <= 0) {
+          clearInterval(timerInterval);
+          alert("Time's up! Submitting your test.");
+          submitTest();
+        }
+        remainingTime--;
+      }, 1000);
+    }
+
+    function showQuestion() {
+      const q = questionsData[currentQuestionIndex];
+      const container = document.getElementById("questionContainer");
+      container.innerHTML = `
+
+        <div class="question">
+          <label>${q.question}</label>
+          ${q.options.map(option => `
+
+                      <div class="radio-option">
+  <input type="radio" name="q" value="${option}" ${userAnswers[currentQuestionIndex] === option ? 'checked' : ''}> ${option}
+</div>
+          `).join('')}
+
+        </div>
+      `;
+
+      document.querySelector('.navigation button:nth-child(1)').style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+      document.getElementById('finishBtn').style.display = currentQuestionIndex === questionsData.length - 1 ? 'inline-block' : 'none';
+      document.querySelector('.navigation button:nth-child(2)').style.display = currentQuestionIndex === questionsData.length - 1 ? 'none' : 'inline-block';
+    }
+
+    function nextQuestion() {
+      saveAnswer();
+      if (currentQuestionIndex < questionsData.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      saveAnswer();
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion();
+      }
+    }
+
+    function saveAnswer() {
+      const selected = document.querySelector('input[name="q"]:checked');
+      if (selected) {
+        userAnswers[currentQuestionIndex] = selected.value;
+      }
+    }
+
+    function submitTest() {
+      clearInterval(timerInterval);
+      saveAnswer();
+      let correctCount = 0;
+      questionsData.forEach((q, i) => {
+        if (userAnswers[i] === q.correct) correctCount++;
+      });
+
+      const percentage = (correctCount / questionsData.length) * 100;
+      studentResults.push({
+        name: username,
+        score: percentage.toFixed(2) + "%",
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString()
+      });
+
+      localStorage.setItem('studentResults', JSON.stringify(studentResults));
+
+      displayCertificate(username, percentage);
+    }
+
+    function displayCertificate(name, percentage) {
+      document.querySelector(".questions").style.display = "none";
+      document.querySelector(".certificate").style.display = "block";
+      document.querySelector("#certificateName span").textContent = name;
+      document.getElementById("certificatePercentage").textContent = percentage.toFixed(2) + "%";
+    }
+
+    function showDetails() {
+      document.querySelector(".certificate").style.display = "none";
+      const detailsContainer = document.getElementById("detailsContainer");
+      detailsContainer.innerHTML = questionsData.map((q, i) => `
+        <div>
+          <strong>${q.question}</strong>
+          <p class="${userAnswers[i] === q.correct ? 'correct' : 'wrong'}">Your answer: ${userAnswers[i]}</p>
+          <p>Correct answer: ${q.correct}</p>
+        </div>
+      `).join('');
+      detailsContainer.style.display = "block";
+    }
+
+    function showTab(tab) {
+      document.getElementById('userTab').style.display = tab === 'user' ? 'block' : 'none';
+      document.getElementById('adminTab').style.display = tab === 'admin' ? 'block' : 'none';
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tab-btn[onclick="showTab('${tab}')"]`).classList.add('active');
+    }
+
+    function authenticateAdmin() {
+  const password = document.getElementById('adminPassword').value.trim();
+  if (password === adminPassword) {
+    // Hide the login container inside adminTab
+    document.querySelector('#adminTab .container').style.display = 'none';
+
+    // Show the admin results container
+    document.getElementById('adminContainer').style.display = 'block';
+
+    // Populate the results
+    const adminResults = document.getElementById('adminResults');
+    adminResults.innerHTML = studentResults.map(result => `
+      <tr>
+        <td>${result.name}</td>
+        <td>${result.score}</td>
+        <td>${result.date}</td>
+        <td>${result.time}</td>
+        <td><button class="btn" onclick="deleteResult('${result.name}')">Delete</button></td>
+      </tr>
+    `).join('');
+  } else {
+    alert('Incorrect password');
+  }
+}
+
+
+    function deleteResult(name) {
+      studentResults = studentResults.filter(result => result.name !== name);
+      localStorage.setItem('studentResults', JSON.stringify(studentResults));
+      authenticateAdmin();
+    }
+    
+  </script>
+</body>
+
+</html>
